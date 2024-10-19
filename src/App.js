@@ -4,6 +4,8 @@ import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-route
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddPage from './pages/AddPage';
+
 
 const AuthContext = createContext(null);
 
@@ -20,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     }
     setLoading(false);
   }, []);
-
+ 
   const login = (token) => {
     localStorage.setItem('token', token);
     setIsAuthenticated(true);
