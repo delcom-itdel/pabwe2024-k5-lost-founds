@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../App';
 import '../styles/login.css';
 import { login } from '../services/api';
-
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -38,7 +36,6 @@ function LoginPage() {
             setLoading(false);
         }
     };
-
 
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">

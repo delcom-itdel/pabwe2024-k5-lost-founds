@@ -28,7 +28,6 @@ export const register = async (name, email, password) => {
 };
 
 
-
 export const fetchLostAndFoundData = async () => {
     try {
         const token = localStorage.getItem('token');
@@ -164,3 +163,60 @@ export const deleteLostAndFoundData = async (id) => {
     }
 };
 
+export const getDailyStats = async (endTime, totalData) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/lost-founds/stats/daily`, {
+            params: {
+                end_date: endTime,
+                total_data: totalData
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data.success) {
+            return response.data.data;
+        } else {
+            throw new Error(response.data.message || 'Failed to fetch daily stats');
+        }
+    } catch (error) {
+        console.error('Error fetching daily stats:', error);
+        throw error;
+    }
+};
+
+export const getMonthlyStats = async (endTime, totalData) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/lost-founds/stats/monthly`, {
+            params: {
+                end_date: endTime,
+                total_data: totalData
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data.success) {
+            return response.data.data;
+        } else {
+            throw new Error(response.data.message || 'Failed to fetch monthly stats');
+        }
+    } catch (error) {
+        console.error('Error fetching monthly stats:', error);
+        throw error;
+    }
+};

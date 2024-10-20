@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, login, logout, loading }}>
       {children}
@@ -120,6 +119,7 @@ function App() {
               <EditPage />
             </ProtectedRoute>
           } />
+          
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link here
 import { addLostAndFoundData } from '../services/api';
 import Header from '../layouts/header';
 
@@ -20,7 +20,7 @@ function AddPage() {
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                navigate('/');
+                navigate('/'); // Redirect to homepage after success
             });
         } catch (error) {
             Swal.fire({
@@ -78,7 +78,7 @@ function AddPage() {
                                 </select>
                             </div>
                             <button type="submit" className="btn btn-primary m-2">Add</button>
-                            <button className="btn btn-secondary" onClick={() => navigate(-1)}>Back</button>
+                            <Link to={'/'} className='btn btn-secondary'>Batal</Link>
                         </form>
                     </div>
                 </div>

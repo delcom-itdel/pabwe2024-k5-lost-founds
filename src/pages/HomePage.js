@@ -26,7 +26,7 @@ function HomePage() {
         }
 
         fetchData();
-    });
+    }, [user]); // Memasukkan user sebagai dependency agar fetchData dipanggil saat user berubah
 
     const fetchData = async () => {
         try {
@@ -70,22 +70,39 @@ function HomePage() {
                 try {
                     await deleteLostAndFoundData(id);
                     setLostAndFoundItems(lostAndFoundItems.filter(item => item.id !== id));
-                    Swal.fire(
-                        'Deleted!',
-                        'The item has been deleted.',
-                        'success'
-                    );
+                    Swal.fire('Deleted!', 'The item has been deleted.', 'success');
                 } catch (error) {
-                    Swal.fire(
-                        'Error!',
-                        'Failed to delete the item. Please try again.',
-                        'error'
-                    );
+                    Swal.fire('Error!', 'Failed to delete the item. Please try again.', 'error');
                 }
             }
         });
     };
 
+    const handleDailyStats = async () => {
+        try {
+            const endTime = new Date().toISOString();
+            const totalData = lostAndFoundItems.length;
+
+            const result = await getDailyStats(endTime, totalData);
+            setStats(result);
+            Swal.fire('Success', 'Daily Stats Loaded', 'success');
+        } catch (error) {
+            Swal.fire('Error', 'Failed to load daily stats', 'error');
+        }
+    };
+
+    const handleMonthlyStats = async () => {
+        try {
+            const endTime = new Date().toISOString();
+            const totalData = lostAndFoundItems.length;
+
+            const result = await getMonthlyStats(endTime, totalData);
+            setStats(result);
+            Swal.fire('Success', 'Monthly Stats Loaded', 'success');
+        } catch (error) {
+            Swal.fire('Error', 'Failed to load monthly stats', 'error');
+        }
+    };
 
     return (
         <div>
@@ -97,6 +114,12 @@ function HomePage() {
                             <Link className='btn btn-sm btn-info' to={'/add'}>Tambah Data</Link>
                         </div>
                         <div className='card-body'>
+                            <button className="btn btn-info me-2" onClick={handleDailyStats}>
+                                View Daily Stats
+                            </button>
+                            <button className="btn btn-info" onClick={handleMonthlyStats}>
+                                View Monthly Stats
+                            </button>
                             {isLoading ? (
                                 <p className='text-center'>Loading...</p>
                             ) : error ? (
@@ -138,6 +161,12 @@ function HomePage() {
                                             ))}
                                         </tbody>
                                     </table>
+                                    {stats && (
+                                        <div className="mt-5">
+                                            <h3>Statistics</h3>
+                                            <pre>{JSON.stringify(stats, null, 2)}</pre>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
