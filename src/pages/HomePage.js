@@ -50,12 +50,43 @@ function HomePage() {
                 }).then(() => {
                     navigate('/login');
                 });
-            } 
+            } else {
+                setError('Failed to fetch data. Please try again later.');
+            }
             setIsLoading(false);
         }
     };
 
-   
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This action cannot be undone!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await deleteLostAndFoundData(id);
+                    setLostAndFoundItems(lostAndFoundItems.filter(item => item.id !== id));
+                    Swal.fire(
+                        'Deleted!',
+                        'The item has been deleted.',
+                        'success'
+                    );
+                } catch (error) {
+                    Swal.fire(
+                        'Error!',
+                        'Failed to delete the item. Please try again.',
+                        'error'
+                    );
+                }
+            }
+        });
+    };
+
+
     return (
         <div>
             <Header />
@@ -66,7 +97,6 @@ function HomePage() {
                             <Link className='btn btn-sm btn-info' to={'/add'}>Tambah Data</Link>
                         </div>
                         <div className='card-body'>
-                            
                             {isLoading ? (
                                 <p className='text-center'>Loading...</p>
                             ) : error ? (
@@ -91,15 +121,15 @@ function HomePage() {
                                                     <td>{item.description}</td>
                                                     <td>{item.status}</td>
                                                     <td>
-                                                        <Link className="btn btn-sm btn-warning me-2" >
+                                                        <Link className="btn btn-sm btn-warning me-2" to={`/${item.id}`}>
                                                             Detail
                                                         </Link>
-                                                        <Link className="btn btn-sm btn-warning me-2" >
+                                                        <Link className="btn btn-sm btn-warning me-2" to={`/edit/${item.id}`}>
                                                             Edit
                                                         </Link>
                                                         <button
                                                             className="btn btn-sm btn-danger"
-                                                            
+                                                            onClick={() => handleDelete(item.id)}
                                                         >
                                                             Delete
                                                         </button>
@@ -108,7 +138,6 @@ function HomePage() {
                                             ))}
                                         </tbody>
                                     </table>
-                                    
                                 </div>
                             )}
                         </div>

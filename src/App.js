@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddPage from './pages/AddPage';
 import DetailPage from './pages/DetailPage';
+import EditPage from './pages/EditPage';
+import ProfilePage from './pages/ProfilePage';
 
 const AuthContext = createContext(null);
 
@@ -113,8 +115,11 @@ function App() {
               <DetailPage />
             </ProtectedRoute>
           } />
-        
-          
+          <Route path="/edit/:id" element={
+            <ProtectedRoute>
+              <EditPage />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Router>
     </AuthProvider>

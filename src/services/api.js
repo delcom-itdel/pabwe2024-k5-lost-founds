@@ -27,30 +27,6 @@ export const register = async (name, email, password) => {
     }
 };
 
-export const getProfile = async () => {
-    try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            throw new Error('No authentication token found');
-        }
-
-        const response = await axios.get(`${API_BASE_URL}/users/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.data.success) {
-            return response.data.data.user; // return the user profile data
-        } else {
-            throw new Error(response.data.message || 'Failed to fetch profile data');
-        }
-    } catch (error) {
-        console.error('Error fetching profile:', error);
-        throw error;
-    }
-};
 
 
 export const fetchLostAndFoundData = async () => {
@@ -133,4 +109,58 @@ export const fetchLostAndFoundDetail = async (id) => {
     }
 };
 
+export const editLostAndFoundData = async (id, title, description, status, is_completed) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.put(`${API_BASE_URL}/lost-founds/${id}`,
+            new URLSearchParams({
+                title,
+                description,
+                status,
+                is_completed
+            }), {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        if (response.data.success) {
+            return response.data;
+        } else {
+            throw new Error(response.data.message || 'Failed to update data');
+        }
+    } catch (error) {
+        console.error('Error updating lost and found data:', error);
+        throw error;
+    }
+};
+
+export const deleteLostAndFoundData = async (id) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.delete(`${API_BASE_URL}/lost-founds/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.data.success) {
+            return response.data;
+        } else {
+            throw new Error(response.data.message || 'Failed to delete data');
+        }
+    } catch (error) {
+        console.error('Error deleting lost and found data:', error);
+        throw error;
+    }
+};
 

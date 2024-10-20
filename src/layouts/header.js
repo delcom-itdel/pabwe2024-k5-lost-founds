@@ -32,7 +32,7 @@ function Header() {
                                 />
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><Link className='dropdown-item' >Profile</Link></li>
+                                <li><Link className='dropdown-item' to={'/me'}>Profile</Link></li>
                                 <li>
                                     <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                                 </li>
