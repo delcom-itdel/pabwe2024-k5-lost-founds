@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+
   return (
     <AuthContext.Provider value={{ isAuthenticated, user, login, logout, loading }}>
       {children}
@@ -119,7 +120,11 @@ function App() {
               <EditPage />
             </ProtectedRoute>
           } />
-          
+          <Route path="/me" element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Router>
     </AuthProvider>

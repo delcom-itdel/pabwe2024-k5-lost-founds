@@ -27,6 +27,91 @@ export const register = async (name, email, password) => {
     }
 };
 
+export const getProfile = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.get(`${API_BASE_URL}/users/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.data.success) {
+            return response.data.data.user; // return the user profile data
+        } else {
+            throw new Error(response.data.message || 'Failed to fetch profile data');
+        }
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        throw error;
+    }
+};
+
+export const updateProfile = async (name, email) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const response = await axios.put(
+            `${API_BASE_URL}/users/me`,
+            new URLSearchParams({ name, email }),
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+        );
+
+        if (response.data.success) {
+            return response.data.data.user;
+        } else {
+            throw new Error(response.data.message || 'Failed to update profile');
+        }
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        throw error;
+    }
+};
+
+export const changeProfilePhoto = async (photoFile) => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('No authentication token found');
+        }
+
+        const formData = new FormData();
+        formData.append('photo', photoFile);
+
+        const response = await axios.post(
+            `${API_BASE_URL}/users/photo`,
+            formData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        );
+
+        if (response.data.success) {
+            return response.data.message;
+        } else {
+            throw new Error(response.data.message || 'Failed to update profile photo');
+        }
+    } catch (error) {
+        console.error('Error updating profile photo:', error);
+        throw error;
+    }
+};
 
 export const fetchLostAndFoundData = async () => {
     try {
@@ -191,6 +276,7 @@ export const getDailyStats = async (endTime, totalData) => {
         throw error;
     }
 };
+
 
 export const getMonthlyStats = async (endTime, totalData) => {
     try {
