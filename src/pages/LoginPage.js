@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from '../App';  // Pastikan path ini benar
+import { useAuth } from '../App';
 import '../styles/login.css';
+import { login } from '../services/api';
+
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -10,7 +12,7 @@ function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login: authLogin } = useAuth();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,14 +20,10 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await axios.post('https://public-api.delcom.org/api/v1/auth/login', {
-                email,
-                password
-            });
-
-            if (response.data && response.data.data.token) {
-                login(response.data.data.token, response.data.data.user);
-                localStorage.setItem('success', response.data.message);
+            const data = await login(email, password);
+            if (data && data.data.token) {
+                authLogin(data.data.token, data.data.user);
+                localStorage.setItem('success', data.message);
                 navigate('/');
             } else {
                 setError('Login gagal: Token tidak ditemukan dalam respons.');
@@ -40,6 +38,7 @@ function LoginPage() {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">

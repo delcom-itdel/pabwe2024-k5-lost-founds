@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddPage from './pages/AddPage';
+import DetailPage from './pages/DetailPage';
 
 const AuthContext = createContext(null);
 
@@ -101,6 +103,18 @@ function App() {
               <RegisterPage />
             </PublicRoute>
           } />
+          <Route path="/add" element={
+            <ProtectedRoute>
+              <AddPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/:id" element={
+            <ProtectedRoute>
+              <DetailPage />
+            </ProtectedRoute>
+          } />
+        
+          
         </Routes>
       </Router>
     </AuthProvider>
