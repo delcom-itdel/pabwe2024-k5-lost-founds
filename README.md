@@ -1,13 +1,13 @@
 
 # Kelompok 5 - Lost & founds
 
-| NIM       | Nama                  |
-|-----------|-----------------------|
-| 11S22027  | Gabriel Sigalingging  |
-| 11S22014  | Baha Sibarani         |
-| 11S22007  | Patricia Sibarani     |
-| 11S22016  | Fretty Sirait         |
-| 11S22009  | Dhea Simanjuntak      |
+| NIM       | Nama                  | username Github    |
+|-----------|-----------------------|--------------------|
+| 11S22027  | Gabriel Sigalingging  | gaba-pro           |
+| 11S22014  | Baha Sibarani         | Pwagaga            |
+| 11S22007  | Patricia Sibarani     | patricia0509       |
+| 11S22016  | Fretty Sirait         | frettyy            |
+| 11S22009  | Dhea Simanjuntak      | Dheagrace107       |
 
 
 # Delcom App
