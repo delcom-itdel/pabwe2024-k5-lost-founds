@@ -138,7 +138,7 @@ export const fetchLostAndFoundData = async () => {
     }
 };
 
-export const addLostAndFoundData = async (title, description, status) => {
+export const addLostAndFoundData = async (title, description, status, author) => {
     try {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -149,7 +149,8 @@ export const addLostAndFoundData = async (title, description, status) => {
             new URLSearchParams({
                 title,
                 description,
-                status
+                status,
+                author
             }), {
             headers: {
                 'Authorization': `Bearer ${token}`,

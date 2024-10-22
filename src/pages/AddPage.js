@@ -9,6 +9,7 @@ function AddPage() {
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('lost');
     const navigate = useNavigate();
+    const [owner, setOwner] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,6 +78,7 @@ function AddPage() {
                                     <option value="found">Found</option>
                                 </select>
                             </div>
+                            
                             <button type="submit" className="btn btn-primary m-2">Add</button>
                             <button className="btn btn-secondary" onClick={() => navigate(-1)}>Back</button>
                         </form>
