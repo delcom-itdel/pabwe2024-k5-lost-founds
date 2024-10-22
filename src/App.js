@@ -9,6 +9,8 @@ import AddPage from './pages/AddPage';
 import DetailPage from './pages/DetailPage';
 import EditPage from './pages/EditPage';
 import ProfilePage from './pages/ProfilePage';
+import MonthlyStatsPage from "./pages/MonthlyStatsPage";
+import DailyStatsPage from "./pages/DailyStatsPage"
 
 const AuthContext = createContext(null);
 
@@ -123,6 +125,16 @@ function App() {
           <Route path="/me" element={
             <ProtectedRoute>
               <ProfilePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/monthly-stats" element={
+            <ProtectedRoute>
+              <MonthlyStatsPage />
+            </ProtectedRoute>
+          } /> {/* Tambahkan route ini untuk MonthlyStatsPage */}
+          <Route path="/daily-stats" element={
+            <ProtectedRoute>
+              <DailyStatsPage />
             </ProtectedRoute>
           } />
         </Routes>

@@ -9,7 +9,6 @@ function AddPage() {
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('lost');
     const navigate = useNavigate();
-    const [owner, setOwner] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
