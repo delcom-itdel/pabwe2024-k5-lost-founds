@@ -100,16 +100,11 @@ function HomePage() {
   };
 
   const handleDailyStats = async () => {
-    try {
-      const endTime = new Date().toISOString();
-      const totalData = lostAndFoundItems.length;
+    navigate("/daily-stats");
+  };
 
-      const result = await getDailyStats(endTime, totalData);
-      setStats(result);
-      Swal.fire("Success", "Daily Stats Loaded", "success");
-    } catch (error) {
-      Swal.fire("Error", "Failed to load daily stats", "error");
-    }
+  const handleMonthlyStats = () => {
+    navigate("/monthly-stats"); // Mengarahkan pengguna ke halaman MonthlyStatsPage
   };
 
   return (
@@ -122,7 +117,6 @@ function HomePage() {
               <Link className="btn btn-sm btn-info" to={"/add"}>
                 Tambah Data{" "}
               </Link>{" "}
-              
             </div>{" "}
             <div className="card-body">
               <button className="btn btn-info me-2" onClick={fetchUserData}>
@@ -131,12 +125,12 @@ function HomePage() {
               <button className="btn btn-info me-2" onClick={fetchAllData}>
                 View All Items
               </button>
-              <Link className="btn btn-info me-2" to={"daily-stats"}>
-                View Daily Stats{" "}
-              </Link>
-              <Link className="btn btn-info me-2" to={"monthly-stats"}>
-                View Monthly Stats{" "}
-              </Link>{" "}  
+              <button className="btn btn-info me-2" onClick={handleDailyStats}>
+                View Daily Stats
+              </button>
+              <button className="btn btn-info" onClick={handleMonthlyStats}>
+                View Monthly Stats
+              </button>
               {isLoading ? (
                 <p className="text-center"> Loading... </p>
               ) : error ? (
@@ -159,13 +153,18 @@ function HomePage() {
                         <tr key={item.id}>
                           <td>{index + 1}</td>
                           <td>{item.title}</td>
-                          <td className="text-truncate description-column"
+                          <td
+                            className="text-truncate description-column"
                             style={{ maxWidth: "200px" }}
                           >
                             {item.description}
                           </td>
-                          <td className="text-truncate description-column"
-                            style={{ maxWidth: "200px" }}>{item.author.name}</td>
+                          <td
+                            className="text-truncate description-column"
+                            style={{ maxWidth: "200px" }}
+                          >
+                            {item.author.name}
+                          </td>
                           <td>{item.status}</td>
                           <td>
                             <div className="d-flex justify-content-center">
