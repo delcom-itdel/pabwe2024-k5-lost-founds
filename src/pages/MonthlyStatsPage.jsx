@@ -35,18 +35,37 @@ function MonthlyStatsPage() {
       <div className="container my-5">
         <div className="card shadow-lg">
           <div className="card-header bg-info text-white text-center">
-            <h3>Monthly Statistics</h3>
+            <h3>Statistik Bulanan</h3>
           </div>
           {isLoading ? (
-            <p className="text-center my-3">Loading...</p>
+            <p className="text-center my-3">Memuat data...</p>
           ) : (
             <div className="card-body">
-         <pre>{JSON.stringify(stats, null, 2)}</pre>
+              <div className="row">
+                {Object.keys(stats).map((key) => (
+                  <div className="col-md-4 mb-4" key={key}>
+                    <div className="card h-100">
+                      <div className="card-body bg-light">
+                        <h5 className="card-title text-info text-center">
+                          {key.replace(/_/g, ' ').toUpperCase()}
+                        </h5>
+                        <p className="card-text text-center">
+                          {typeof stats[key] === "object" && !Array.isArray(stats[key])
+                            ? JSON.stringify(stats[key])
+                            : Array.isArray(stats[key])
+                            ? stats[key].join(", ")
+                            : stats[key]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-          <div className="card-footer">
+          <div className="card-footer text-center">
             <button className="btn btn-secondary" onClick={() => navigate(-1)}>
-              Back
+              Kembali
             </button>
           </div>
         </div>
