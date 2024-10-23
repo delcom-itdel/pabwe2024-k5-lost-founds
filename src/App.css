@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Jarak antar tombol */
+}
+
+.button-group .btn {
+  flex-shrink: 0; /* Mencegah tombol mengecil ketika ada elemen lain berubah ukuran */
+}
