@@ -18,7 +18,7 @@ function DailyStatsPage() {
   const fetchDailyStats = async () => {
     try {
       const endTime = new Date().toISOString();
-      const totalData = 0; // Ganti ini dengan jumlah data yang sesuai jika perlu
+      const totalData = 0; 
 
       const result = await getDailyStats(endTime, totalData);
       setStats(result);
@@ -32,73 +32,16 @@ function DailyStatsPage() {
   return (
     <div>
       <Header />
-      <div className="container w-50 my-5">
-        <div className="card">
-          <div className="card-header">
+      <div className="container my-5">
+        <div className="card shadow-lg">
+          <div className="card-header bg-info text-white text-center">
             <h3>Daily Statistics</h3>
           </div>
           {isLoading ? (
-            <p className="text-center">Loading...</p>
+            <p className="text-center my-3">Loading...</p>
           ) : (
             <div className="card-body">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Category</th>
-                    <th>Data</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Stats Losts</td>
-                    <td>
-                      {stats.stats_losts.length > 0
-                        ? stats.stats_losts.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Stats Losts Completed</td>
-                    <td>
-                      {stats.stats_losts_completed.length > 0
-                        ? stats.stats_losts_completed.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Stats Losts In Process</td>
-                    <td>
-                      {stats.stats_losts_process.length > 0
-                        ? stats.stats_losts_process.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Stats Founds</td>
-                    <td>
-                      {stats.stats_founds.length > 0
-                        ? stats.stats_founds.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Stats Founds Completed</td>
-                    <td>
-                      {stats.stats_founds_completed.length > 0
-                        ? stats.stats_founds_completed.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Stats Founds In Process</td>
-                    <td>
-                      {stats.stats_founds_process.length > 0
-                        ? stats.stats_founds_process.join(", ")
-                        : "No data"}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+             <pre>{JSON.stringify(stats, null, 2)}</pre>
             </div>
           )}
           <div className="card-footer">

@@ -18,13 +18,13 @@ function MonthlyStatsPage() {
   const fetchMonthlyStats = async () => {
     try {
       const endTime = new Date().toISOString();
-      const totalData = 0; // Ganti sesuai dengan data yang Anda miliki
+      const totalData = 0;
 
       const result = await getMonthlyStats(endTime, totalData);
       setStats(result);
       setIsLoading(false);
     } catch (error) {
-      Swal.fire("Error", "Failed to load monthly stats", "error");
+      Swal.fire("Error", "Gagal memuat statistik bulanan", "error");
       navigate("/"); // Kembali ke halaman utama jika gagal
     }
   };
@@ -32,17 +32,16 @@ function MonthlyStatsPage() {
   return (
     <div>
       <Header />
-      <div className="container w-50 my-5">
-        <div className="card">
-          <div className="card-header">
+      <div className="container my-5">
+        <div className="card shadow-lg">
+          <div className="card-header bg-info text-white text-center">
             <h3>Monthly Statistics</h3>
           </div>
           {isLoading ? (
-            <p className="text-center">Loading...</p>
+            <p className="text-center my-3">Loading...</p>
           ) : (
             <div className="card-body">
-              <pre>{JSON.stringify(stats, null, 2)}</pre>{" "}
-              {/* Menampilkan JSON terformat */}
+         <pre>{JSON.stringify(stats, null, 2)}</pre>
             </div>
           )}
           <div className="card-footer">
