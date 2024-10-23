@@ -131,7 +131,7 @@ function App() {
             <ProtectedRoute>
               <MonthlyStatsPage />
             </ProtectedRoute>
-          } /> {/* Tambahkan route ini untuk MonthlyStatsPage */}
+          } /> 
           <Route path="/daily-stats" element={
             <ProtectedRoute>
               <DailyStatsPage />

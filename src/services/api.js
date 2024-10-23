@@ -253,13 +253,13 @@ export const getDailyStats = async (endTime, totalData) => {
     try {
         const token = localStorage.getItem('token');
         if (!token) {
-            throw new Error('No authentication token found');
+            throw new Error('Authentication required. Please log in.');
         }
 
         const response = await axios.get(`${API_BASE_URL}/lost-founds/stats/daily`, {
             params: {
                 end_date: endTime,
-                total_data: totalData
+                ...(totalData > 0 && { total_data: totalData })  
             },
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -267,13 +267,17 @@ export const getDailyStats = async (endTime, totalData) => {
             }
         });
 
-        if (response.data.success) {
-            return response.data.data;
+        if (response.data && response.data.success) {
+            if (response.data.data) {
+                return response.data.data;
+            } else {
+                throw new Error('No data available');
+            }
         } else {
-            throw new Error(response.data.message || 'Failed to fetch daily stats');
+            throw new Error(response.data.message || 'Failed to fetch monthly stats');
         }
     } catch (error) {
-        console.error('Error fetching daily stats:', error);
+        console.error('Error fetching monthly stats:', error.response ? error.response.data : error.message);
         throw error;
     }
 };
@@ -288,7 +292,7 @@ export const getMonthlyStats = async (endTime, totalData) => {
         const response = await axios.get(`${API_BASE_URL}/lost-founds/stats/monthly`, {
             params: {
                 end_date: endTime,
-                ...(totalData > 0 && { total_data: totalData })  // Hanya kirim jika totalData > 0
+                ...(totalData > 0 && { total_data: totalData })  
             },
             headers: {
                 Authorization: `Bearer ${token}`,
