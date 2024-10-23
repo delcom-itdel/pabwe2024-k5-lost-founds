@@ -46,9 +46,15 @@ function MonthlyStatsPage() {
                   <div className="col-md-4 mb-4" key={key}>
                     <div className="card h-100">
                       <div className="card-body bg-light">
+
                         <h5 className="card-title text-center">
-                          {key.replace(/_/g, ' ').toUpperCase()}
+                          {key.replace(g, ' ').toUpperCase()}
                         </h5>-
+
+                        <h5 className="card-title text-info text-center">
+                          {key.replace(g, ' ').toUpperCase()}
+                        </h5>
+
                         <p className="card-text text-center">
                           {typeof stats[key] === "object" && !Array.isArray(stats[key])
                             ? JSON.stringify(stats[key])

@@ -74,4 +74,4 @@ function DailyStatsPage() {
   );
 }
 
-export default DailyStatsPage;
+export default DailyStatsPage;
